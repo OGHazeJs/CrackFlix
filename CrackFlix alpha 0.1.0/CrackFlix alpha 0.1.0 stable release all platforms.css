@@ -1,0 +1,1016 @@
+/* =========================================================================
+   CRACKFLIX v2.4
+   CONSERVATIVE CLEANUP
+   Basis: CrackFlix v2.3
+   Doel: zelfde uiterlijk + gedrag, minder kwetsbare structuur
+   ========================================================================= */
+
+
+/* =========================================================================
+   1. CORE / DESIGN TOKENS
+   ========================================================================= */
+
+:root {
+    --cf-red-main: #e50914 !important;
+    --cf-red-hover: #b20710 !important;
+    --cf-red-light: #ff1a24 !important;
+
+    --cf-bg-pure-black: #000000 !important;
+
+    /* Jellyfin / Material overlays uitschakelen */
+    --Paper-overlay: none !important;
+    --jf-overlays-1: none !important;
+    --jf-overlays-2: none !important;
+    --jf-overlays-3: none !important;
+    --jf-overlays-4: none !important;
+    --Paper-shadow: none !important;
+
+    /* Jellyfin 12.1 */
+    --theme-primary-color: #e50914 !important;
+    --theme-primary-color-hover: #b20710 !important;
+    --mdl-slider-color: #e50914 !important;
+    --theme-icon-focus-color: #e50914 !important;
+
+    --theme-background: #000000 !important;
+    --theme-base-bg: #000000 !important;
+    --theme-appbar-background: #000000 !important;
+
+    /* Jellyfin palette */
+    --jf-palette-primary-main: #e50914 !important;
+    --jf-palette-primary-dark: #b20710 !important;
+    --jf-palette-primary-light: #ff1a24 !important;
+
+    --jf-palette-secondary-main: #e50914 !important;
+
+    --jf-palette-background-default: #000000 !important;
+    --jf-palette-background-paper: #000000 !important;
+
+    --jf-palette-text-primary: #ffffff !important;
+    --jf-palette-text-secondary: #ffffff !important;
+
+    --jf-palette-AppBar-defaultBg: #000000 !important;
+    --jf-palette-AppBar-transparentBg: #000000 !important;
+}
+
+
+/* =========================================================================
+   3. TYPOGRAPHY
+   ========================================================================= */
+
+/*
+   Fonts worden bewust niet meer via de oude kapotte/onnodige import geladen.
+   Jellyfin/browser kan de eerste beschikbare font uit deze stack gebruiken.
+*/
+
+body,
+html,
+input,
+select,
+button,
+textarea,
+.textActionButton,
+.emby-input,
+.emby-select,
+.cardText,
+.cardTextBoxes,
+div[class*="cardText"] {
+    font-family:
+        'Open Sans',
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+.itemName,
+.sectionTitle,
+.sectionTitleText,
+.pageTitle,
+.button-submit,
+.btnSubmit,
+div[class*="sectionTitle"] {
+    font-family: 'Bebas Neue', sans-serif !important;
+    letter-spacing: 1.5px !important;
+}
+
+.cardText-first,
+.cardText-secondary,
+.emby-textarea,
+.textSecondary,
+.textSecondary * {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================================
+   4. PROGRESS BARS / INDICATORS
+   ========================================================================= */
+
+.itemLinearProgress,
+.itemProgressBar,
+.innerCardFooter .itemProgressBar,
+div[class*="itemProgressBar"] {
+    background-color: #b20710 !important;
+}
+
+.itemLinearProgress .MuiLinearProgress-bar,
+.itemProgressBarForeground,
+div[class*="itemProgressBarForeground"] {
+    background-color: #e50914 !important;
+    background: #e50914 !important;
+}
+
+.countIndicator,
+div[class*="countIndicator"],
+.cardIndicators .countIndicator,
+.indicator.countIndicator {
+    background-color: #e50914 !important;
+    background: #e50914 !important;
+}
+
+.countIndicator,
+.countIndicatorText,
+div[class*="countIndicatorText"] {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================================
+   5. POSTERS / CARD HOVER
+   ========================================================================= */
+
+.card,
+.cardScalable,
+.cardImageContainer,
+.cardContent,
+.thumbCard,
+.squareCard {
+    transition:
+        transform 0.22s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: transform;
+}
+
+.cardOverlayContainer {
+    border-radius: 8px !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.cardScalable,
+.cardImageContainer,
+.cardContent,
+.thumbCard,
+.squareCard,
+.cardOverlayContainer {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+@media (hover: hover) {
+
+    .card:hover .cardScalable,
+    .cardImageContainer:hover,
+    .card:hover .cardImageContainer,
+    .cardOverlayContainer:hover + .cardImageContainer,
+    .cardOverlayContainer:hover ~ .cardScalable {
+        transform: scale(1.06) !important;
+    }
+
+    #moviesPage .card:hover,
+    #showsPage .card:hover,
+    div[data-role="page"]:not(#homePage) .card:hover {
+        filter:
+            drop-shadow(0 12px 20px rgba(0, 0, 0, 0.95)) !important;
+    }
+
+    .card:hover {
+        z-index: 99 !important;
+    }
+}
+
+.cardText,
+.cardTextBoxes {
+    transform: none !important;
+    border-radius: 0 !important;
+}
+
+
+/* =========================================================================
+   6. BUTTONS
+   ========================================================================= */
+
+button.btnFavorite,
+button.btnPlaystate,
+button.btnMore,
+.cardOverlayButton,
+.headerButton,
+.headerRight button,
+.headerLeft button,
+.MuiToolbar-root button,
+button[aria-label="SyncPlay"],
+button[aria-label="Cast to Device"],
+button[aria-label="Close Menu"],
+button.mainDrawerButton,
+button.headerSearchButton,
+.MuiIconButton-colorInherit svg,
+.MuiIconButton-colorInherit path,
+#itemDetailPage button:not(.emby-button-accent) {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+
+/* Ripple verwijderen */
+
+.mdl-button__ripple-container,
+.mdl-button .mdl-button__ripple-container,
+div[class*="ripple-container"],
+.MuiTouchRipple-root,
+.mdl-button__ripple-container * {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+
+/* Hover */
+
+button.btnFavorite:hover,
+button.btnFavorite:hover *,
+button.btnPlaystate:hover,
+button.btnPlaystate:hover *,
+button.btnMore:hover,
+button.btnMore:hover *,
+.cardOverlayButton:hover,
+.cardOverlayButton:hover *,
+.headerRight button:hover,
+.headerRight button:hover *,
+.headerLeft button:hover,
+.headerLeft button:hover *,
+.MuiToolbar-root button:hover,
+.MuiToolbar-root button:hover *,
+button[aria-label="SyncPlay"]:hover *,
+button[aria-label="Cast to Device"]:hover *,
+button.mainDrawerButton:hover *,
+button.headerSearchButton:hover *,
+#itemDetailPage button:not(.emby-button-accent):hover,
+#itemDetailPage button:not(.emby-button-accent):hover * {
+    color: var(--cf-red-main) !important;
+    fill: var(--cf-red-main) !important;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+#indexPage button.btnFavorite:not([data-isfavorite="true"]) .material-icons,
+#favouritePage button.btnFavorite:not([data-isfavorite="true"]) .material-icons {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+
+/* =========================================================================
+   7. NAVBAR
+   ========================================================================= */
+
+.skinHeader:not(.videoOsd-appBar),
+.appBar:not(.videoOsd-appBar),
+.headroom:not(.videoOsdHeader) {
+    background-color: #000000 !important;
+    background: #0000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    backdrop-filter: none !important;
+}
+
+
+/* =========================================================================
+   8. LOGIN
+   ========================================================================= */
+
+body:has(#loginPage:not(.hide)) .skinHeader {
+    display: none !important;
+}
+
+#loginPage {
+    position: relative !important;
+    width: 100% !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+    background-blend-mode: normal !important;
+    overflow: hidden !important;
+}
+
+#loginPage > div {
+    position: absolute !important;
+    top: 50% !important;
+    right: 7vw !important;
+    left: auto !important;
+    transform: translateY(-50%) !important;
+    width: 400px !important;
+    max-width: 400px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#loginPage .readOnlyContent,
+#loginPage form {
+    width: 100% !important;
+    max-width: 400px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#loginPage .padded-left.padded-right.padded-bottom-page {
+    width: 100% !important;
+    max-width: 400px !important;
+    margin: 0 !important;
+    padding: 32px !important;
+    box-sizing: border-box !important;
+
+    background: rgba(0, 0, 0, 0.72) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.65) !important;
+
+    backdrop-filter: blur(8px) !important;
+}
+
+#loginPage h1 {
+    display: block !important;
+    margin: 0 0 24px 0 !important;
+    padding: 0 !important;
+
+    color: #ffffff !important;
+    font-size: 38px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    letter-spacing: 1.5px !important;
+}
+
+#loginPage .emby-input {
+    width: 100% !important;
+    height: 48px !important;
+    box-sizing: border-box !important;
+
+    padding: 0 14px !important;
+
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 5px !important;
+
+    color: #ffffff !important;
+    font-size: 15px !important;
+}
+
+#loginPage .emby-input:focus {
+    background: rgba(255, 255, 255, 0.11) !important;
+    border-color: #e50914 !important;
+    box-shadow: 0 0 0 1px #e50914 !important;
+    outline: none !important;
+}
+
+#loginPage .inputLabel {
+    color: #ffffff !important;
+    font-size: 15px !important;
+}
+
+#loginPage .inputContainer {
+    margin-bottom: 20px !important;
+}
+
+#loginPage .checkboxContainer {
+    margin-top: 4px !important;
+    margin-bottom: 22px !important;
+}
+
+#loginPage .checkboxLabel {
+    color: #ffffff !important;
+}
+
+#loginPage .btnSubmit {
+    width: 100% !important;
+    height: 50px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+
+    border-radius: 5px !important;
+    background: #e50914 !important;
+    color: #ffffff !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    border: none !important;
+    box-shadow: none !important;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease !important;
+}
+
+#loginPage .btnSubmit:hover {
+    background: #f40612 !important;
+    transform: scale(1.01) !important;
+}
+
+#loginPage .btnManual,
+#loginPage .btnForgotPassword {
+    width: 100% !important;
+    height: 48px !important;
+    margin: 6px 0 0 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+
+    border-radius: 5px !important;
+    background: rgba(255, 255, 255, 0.20) !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+}
+
+#loginPage .btnManual:hover,
+#loginPage .btnForgotPassword:hover {
+    background: rgba(255, 255, 255, 0.28) !important;
+}
+
+#loginPage a {
+    color: #ffffff !important;
+}
+
+#loginPage .backdropImage,
+.backgroundContainer.withBackdrop,
+.backgroundContainer {
+    filter: none !important;
+    background-color: transparent !important;
+}
+
+#loginPage::before,
+#loginPage::after,
+.backgroundContainer::before,
+.backgroundContainer::after {
+    display: none !important;
+    background: transparent !important;
+    opacity: 0 !important;
+}
+
+@media (min-width: 1600px) {
+
+    #loginPage > div {
+        right: 8vw !important;
+        width: 420px !important;
+        max-width: 420px !important;
+    }
+
+    #loginPage .readOnlyContent,
+    #loginPage form,
+    #loginPage .padded-left.padded-right.padded-bottom-page {
+        max-width: 420px !important;
+    }
+}
+
+
+/* =========================================================================
+   9. POPUPS / DIALOGS
+   ========================================================================= */
+
+.dialog,
+.filterDialog,
+.actionSheet,
+.mainDrawer-scrollContainer,
+div[class*="filterDialog"],
+div[data-role="dialog"],
+.formDialog,
+.openModal,
+.popupContainer,
+.actionSheetContainer,
+.toast,
+.appbar-popup,
+.paper,
+.MuiPaper-root,
+.MuiMenu-paper,
+.dropdownMenu {
+    background-color: #000000 !important;
+    background: #000000 !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95) !important;
+    border-radius: 8px !important;
+
+    color: #ffffff !important;
+}
+
+.dialogHeader,
+.actionSheetHeader,
+div[class*="dialogHeader"],
+.MuiList-root {
+    background-color: #000000 !important;
+    background: #000000 !important;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dialogTitle,
+.actionSheetTitle,
+.MuiMenuItem-root,
+.MuiButton-root {
+    font-family: 'Bebas Neue', sans-serif !important;
+    font-size: 20px !important;
+    letter-spacing: 1px !important;
+    color: #ffffff !important;
+}
+
+.MuiMenuItem-root:hover,
+.MuiListItemButton-root:hover,
+.actionSheetMenuItem:hover {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: var(--cf-red-main) !important;
+}
+
+
+/* =========================================================================
+   10. CHECKBOX / RADIO
+   ========================================================================= */
+
+.emby-checkbox:checked + span::before,
+input[type="checkbox"]:checked + span::before,
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+    background-color: #e50914 !important;
+    background: #e50914 !important;
+    border-color: #e50914 !important;
+}
+
+.emby-checkbox + span::before,
+input[type="checkbox"] + span::before {
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 3px !important;
+}
+
+.emby-radio:checked + span::before,
+input[type="radio"]:checked + span::before,
+.mdl-radio.is-checked .mdl-radio__button {
+    background-color: #e50914 !important;
+    border-color: #e50914 !important;
+}
+
+
+/* =========================================================================
+   11. VIDEO SLIDERS
+   ========================================================================= */
+
+.mdl-slider-background-lower,
+.videoOsdBottom .mdl-slider-background-lower,
+.sliderContainer .mdl-slider-background-lower,
+div[class*="sliderContainer"] div[class*="barForeground"],
+.MuiSlider-track,
+.MuiSlider-selection,
+.playbackProgress .MuiLinearProgress-bar {
+    background-color: var(--cf-red-main) !important;
+    background: var(--cf-red-main) !important;
+    color: var(--cf-red-main) !important;
+}
+
+.mdl-slider::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider::-webkit-slider-thumb,
+input[type="range"]::-webkit-slider-thumb,
+.MuiSlider-thumb,
+.MuiSlider-thumbColorPrimary {
+    background: var(--cf-red-main) !important;
+    background-color: var(--cf-red-main) !important;
+    color: var(--cf-red-main) !important;
+}
+
+.mdl-slider::-moz-range-thumb,
+.videoOsdBottom .mdl-slider::-moz-range-thumb {
+    background: var(--cf-red-main) !important;
+    background-color: var(--cf-red-main) !important;
+}
+
+input[type="range"],
+.videoOsdBottom input[type="range"],
+.MuiSlider-root {
+    accent-color: var(--cf-red-main) !important;
+
+    --theme-primary-color: #e50914 !important;
+    --mdl-slider-color: #e50914 !important;
+}
+
+
+/* =========================================================================
+   12. HERO
+   ========================================================================= */
+
+.cf-hero-banner {
+    position: relative;
+    width: 100%;
+    height: 58vh;
+    min-height: 420px;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0 0 24px 0;
+
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cf-hero-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 35%;
+    padding-left: 4%;
+
+    color: #ffffff !important;
+}
+
+.cf-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            77deg,
+            rgba(0, 0, 0, 0.85) 0%,
+            rgba(0, 0, 0, 0.3) 40%,
+            rgba(0, 0, 0, 0) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0) 25%
+        ) !important;
+}
+
+.cf-hero-tag {
+    color: var(--cf-red-main) !important;
+    font-size: 16px !important;
+    margin: 0 0 8px 0 !important;
+    letter-spacing: 2px !important;
+    font-weight: 700 !important;
+}
+
+.cf-hero-title {
+    font-size: 52px !important;
+    line-height: 1.1 !important;
+    margin: 0 0 16px 0 !important;
+
+    color: #ffffff !important;
+    text-transform: uppercase;
+}
+
+.cf-hero-desc {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 24px 0 !important;
+
+    color: #e5e5e5 !important;
+    font-weight: 400;
+}
+
+.cf-hero-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.cf-btn-play,
+.cf-btn-info {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 24px !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    border-radius: 4px !important;
+    text-decoration: none !important;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.cf-btn-play {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.cf-btn-play:hover {
+    background-color: var(--cf-red-main) !important;
+    color: #ffffff !important;
+    transform: scale(1.03) !important;
+}
+
+.cf-btn-info {
+    background-color: rgba(109, 109, 110, 0.7) !important;
+    color: #ffffff !important;
+}
+
+.cf-btn-info:hover {
+    background-color: var(--cf-red-main) !important;
+    color: #ffffff !important;
+    transform: scale(1.03) !important;
+}
+
+.cf-hero-buttons .material-icons {
+    font-size: 22px !important;
+    color: inherit !important;
+}
+
+
+/* =========================================================================
+   13. VIDEO PLAYER / EPISODE PANEL
+   ========================================================================= */
+
+.cf-episodes-overlay {
+    pointer-events: none !important;
+
+    position: fixed;
+    top: 0;
+    right: -400px;
+
+    width: 380px;
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.96);
+
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+
+    z-index: 9999999;
+
+    transition: right 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cf-episodes-overlay.is-open {
+    right: 0;
+    pointer-events: auto !important;
+}
+
+.cf-episodes-panel {
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    box-sizing: border-box;
+
+    pointer-events: auto !important;
+}
+
+.cf-episodes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+.cf-episodes-header h2 {
+    font-family: 'Bebas Neue', sans-serif !important;
+
+    font-size: 28px !important;
+
+    color: #ffffff !important;
+
+    margin: 0 !important;
+
+    letter-spacing: 1px !important;
+}
+
+.cf-episodes-close {
+    background: transparent !important;
+    border: none !important;
+
+    color: #ffffff !important;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cf-episodes-close:hover {
+    color: var(--cf-red-main) !important;
+}
+
+
+/* =========================================================================
+   14. VIDEO PLAYER BOTTOM BUTTONS
+   ========================================================================= */
+
+.videoOsdBottom button,
+.videoOsdBottom .MuiButtonBase-root,
+.videoOsdBottom .MuiIconButton-root,
+.videoOsdBottom .mdl-button__ripple-container,
+.videoOsdBottom .MuiTouchRipple-root {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.videoOsdBottom button:focus,
+.videoOsdBottom button:active,
+.videoOsdBottom .MuiButtonBase-root:focus {
+    background-color: transparent !important;
+    outline: none !important;
+}
+
+
+/* =========================================================================
+   15. LOADING SPINNERS
+   ========================================================================= */
+
+.mdl-spinner,
+.loadingSpinner,
+.spinner,
+.docSpinner,
+div[class*="loadingSpinner"],
+div[class*="docSpinner"],
+.MuiCircularProgress-root {
+    color: var(--cf-red-main) !important;
+}
+
+.loadingSpinner svg,
+.spinner svg,
+div[class*="loadingSpinner"] svg,
+.MuiCircularProgress-svg {
+    stroke: var(--cf-red-main) !important;
+}
+
+.mdl-spinner__layer-1,
+.mdl-spinner__layer-2,
+.mdl-spinner__layer-3,
+.mdl-spinner__layer-4 {
+    border-color: var(--cf-red-main) !important;
+}
+
+.MuiCircularProgress-circle {
+    stroke: var(--cf-red-main) !important;
+    animation:
+        MuiCircularProgress-keyframes-circular-rotate
+        1.4s ease-in-out infinite !important;
+}
+
+
+/* =========================================================================
+   16. RESPONSIVE HERO
+   ========================================================================= */
+
+@media (max-width: 900px) {
+
+    .cf-hero-content {
+        max-width: 60%;
+    }
+
+    .cf-hero-title {
+        font-size: 42px !important;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .cf-hero-banner {
+        height: 52vh;
+        min-height: 360px;
+    }
+
+    .cf-hero-content {
+        max-width: 90%;
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .cf-hero-title {
+        font-size: 34px !important;
+    }
+
+    .cf-hero-desc {
+        font-size: 13px !important;
+    }
+
+    .cf-hero-buttons {
+        gap: 8px;
+    }
+
+    .cf-btn-play,
+    .cf-btn-info {
+        padding: 9px 16px !important;
+        font-size: 14px !important;
+    }
+}
+
+
+/* =========================================================================
+   17. HEADER NAVIGATION
+   ========================================================================= */
+
+/* Hover */
+
+a[href="#/home?tab=1"].MuiButton-root:hover,
+a[href^="#/movies?topParentId="].MuiButton-root:hover,
+a[href^="#/tv?topParentId="].MuiButton-root:hover {
+    color: var(--cf-red-main) !important;
+}
+
+a[href="#/home?tab=1"].MuiButton-root:hover svg,
+a[href="#/home?tab=1"].MuiButton-root:hover path,
+a[href^="#/movies?topParentId="].MuiButton-root:hover svg,
+a[href^="#/movies?topParentId="].MuiButton-root:hover path,
+a[href^="#/tv?topParentId="].MuiButton-root:hover svg,
+a[href^="#/tv?topParentId="].MuiButton-root:hover path {
+    color: var(--cf-red-main) !important;
+    fill: var(--cf-red-main) !important;
+}
+
+
+/* Active / selected */
+
+a[href="#/home?tab=1"].MuiButton-textPrimary,
+a[href^="#/movies?topParentId="].MuiButton-textPrimary,
+a[href^="#/tv?topParentId="].MuiButton-textPrimary {
+    color: var(--cf-red-main) !important;
+}
+
+a[href="#/home?tab=1"].MuiButton-textPrimary svg,
+a[href="#/home?tab=1"].MuiButton-textPrimary path,
+a[href^="#/movies?topParentId="].MuiButton-textPrimary svg,
+a[href^="#/movies?topParentId="].MuiButton-textPrimary path,
+a[href^="#/tv?topParentId="].MuiButton-textPrimary svg,
+a[href^="#/tv?topParentId="].MuiButton-textPrimary path {
+    color: var(--cf-red-main) !important;
+    fill: var(--cf-red-main) !important;
+}
+
+
+/* CrackFlix logo */
+
+a[href="#/"].MuiButton-root img {
+    max-height: 2.5em !important;
+    max-width: 2.5em !important;
+}
+
+
+/* Search button — hover */
+
+a[href="#/search"][aria-label="Search"]:hover {
+    color: var(--cf-red-main) !important;
+}
+
+a[href="#/search"][aria-label="Search"]:hover svg,
+a[href="#/search"][aria-label="Search"]:hover path {
+    color: var(--cf-red-main) !important;
+    fill: var(--cf-red-main) !important;
+}
+
+
+/* Header — volledig laten overvloeien met de achtergrond */
+
+header.MuiAppBar-root {
+    background-color: #000000 !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
