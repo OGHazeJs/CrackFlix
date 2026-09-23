@@ -8,6 +8,40 @@ Version **0.1.0-alpha** is the first public release of CrackFlix.
 
 ---
 
+## 📸 Screenshots
+
+Screenshots shown below are from the **Jellyfin Web interface**, which is the primary visual reference for CrackFlix.
+
+### Home — Movie Hero
+
+![CrackFlix Home - Movie Hero](screenshots/home_webbrowser_pc_movie.png)
+
+### Home — Series Hero
+
+![CrackFlix Home - Series Hero](screenshots/home_webbrowser_pc_show.png)
+
+### Movies
+
+![CrackFlix Movies](screenshots/movies_webbrowser_pc.png)
+
+### Shows
+
+![CrackFlix Shows](screenshots/shows_webbrowser_pc.png)
+
+### Movie Details
+
+![CrackFlix Movie Details](screenshots/movies_details_1_webbrowser_pc.png)
+
+### Video Player
+
+![CrackFlix Video Player](screenshots/videoplayer_1_webbrowser_pc.png)
+
+### Login
+
+![CrackFlix Login](screenshots/login_webbrowser_pc.png)
+
+---
+
 ## ✨ Features
 
 ### Netflix-inspired interface
@@ -92,13 +126,21 @@ CrackFlix 0.1.0 consists of a CSS file, a JavaScript file and optional visual as
 
 ```text
 CrackFlix alpha 0.1.0/
+
 ├── CrackFlix alpha 0.1.0 stable release all platforms.css
+
 ├── CrackFlix alpha 0.1.0 stable release all platforms java.js
+
 ├── README.md
+
 ├── CHANGELOG.md
+
 ├── LICENSE
+
 └── assets/
+
     ├── crackflix-logo.png
+
     └── crackflix-login-splash.png
 ```
 
